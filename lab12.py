@@ -33,7 +33,7 @@ institutions = [
     }
 ]
 
-jsonData = json.dumps(institutions, indent=4)
+jsonData = json.dumps(institutions)
 with open("data.json", "wt") as file:
     file.write(jsonData)
 
@@ -62,7 +62,7 @@ def add_del(operation, filename="data.json"):
         return
 
     with open(filename, "wt") as file:
-        json.dump(data, file, indent=4)
+        json.dump(data, file)
 
 def search_in_json(field, value, filename="data.json"):
     try:
@@ -91,10 +91,14 @@ def calculate_school_students(filename="data.json"):
         with open(filename, "rt") as file:
             data = json.load(file)
 
-        # Фільтрація шкіл і підрахунок студентів
         total_students = sum(institution["students"] for institution in data if institution["type"] == "school")
 
         print(f"Загальна кількість учнів у школах: {total_students}")
+
+        with open("data1.json", "wt") as output_file:
+            json.dump({"total_school_students": total_students}, output_file)
+
+        print("Інормація успішно записана до нового json-файлу")
 
     except FileNotFoundError:
         print("Файл не знайдено.")
