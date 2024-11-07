@@ -33,6 +33,7 @@ institutions = [
     }
 ]
 
+
 jsonData = json.dumps(institutions)
 with open("data.json", "wt") as file:
     file.write(jsonData)
